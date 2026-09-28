@@ -1,0 +1,43 @@
+{
+  "name": "stock-trade-bot",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/process-watchdog.mjs dev:stack",
+    "dev:stack": "concurrently -k -n api,web -c cyan,green \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:api": "tsx watch src/server/index.ts",
+    "dev:web": "vite",
+    "build": "tsc -p tsconfig.server.json && vite build",
+    "start": "node scripts/process-watchdog.mjs start:app",
+    "start:app": "node dist/server/index.js",
+    "test": "node --import tsx --test tests/**/*.test.ts",
+    "test:changed": "npm test",
+    "verify": "npm test && npm run build",
+    "generate:canary-wallet": "tsx scripts/generate-canary-wallet.ts",
+    "copy:canary-private-key": "tsx scripts/copy-canary-private-key.ts"
+  },
+  "dependencies": {
+    "@fastify/static": "^10.1.4",
+    "@solana/web3.js": "^1.99.0",
+    "bs58": "^6.0.0",
+    "decimal.js": "^10.6.0",
+    "dotenv": "^18.0.2",
+    "fastify": "^5.12.5",
+    "matter-js": "^0.20.0",
+    "mongodb": "^7.6.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@types/matter-js": "^0.20.2",
+    "@types/node": "^26.6.2",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "concurrently": "^10.0.5",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.0"
+  }
+}
